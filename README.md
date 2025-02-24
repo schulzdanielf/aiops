@@ -5,7 +5,7 @@ Este projeto tem como objetivo aplicar os conceitos de SRE (Site Reliability Eng
 
 Para aumentar a robustez e a capacidade de diagnóstico do sistema, será adotada a estratégia de Engenharia do Caos, simulando falhas planejadas e variações de tráfego de usuários. Esses testes serão documentados e utilizados para construir uma base de conhecimento que alimentará uma RAG (Retrieval-Augmented Generation) para um modelo de IA generativa.
 
-O foco principal é criar e documentar exemplos reais de cenários de indisponibilidade. Em testes futuros, o modelo será capaz de recuperar casos similares da base de conhecimento e oferecer diagnósticos detalhados para identificar possíveis causas de falhas na aplicação.
+O foco principal é criar e documentar exemplos reais de cenários de indisponibilidade. Em cenários futuros, o modelo será capaz de recuperar casos similares da base de conhecimento e oferecer diagnósticos detalhados para identificar possíveis causas de falhas na aplicação.
 
 Com essa abordagem, o projeto busca unir práticas modernas de monitoramento, aprendizado de máquina e engenharia do caos para construir um fluxo de dados resiliente e inteligente, capaz de auxiliar na prevenção e na rápida resolução de incidentes em ambientes de produção.
 
