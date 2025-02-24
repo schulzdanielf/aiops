@@ -6,6 +6,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY download_imdb.py .
 
-CMD ["python", "data_loader.py"]
+CMD ["python", "download_imdb.py"]

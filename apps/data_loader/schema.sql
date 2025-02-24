@@ -5,7 +5,9 @@ CREATE TABLE IF NOT EXISTS filmes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     ano_lancamento INT,
-    descricao TEXT
+    descricao TEXT, 
+    duracao_minutos INT,
+    tconst VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS atores (

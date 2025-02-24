@@ -1,28 +1,22 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: mysql-init-job
+  name: data-loader-job
 spec:
   template:
     spec:
       containers:
-      - name: db-init
-        image: python:3.12
-        command: ["sh", "-c"]
-        args:
-          - "pip install pymysql && python /app/download_imdb.py"
-        volumeMounts:
-        - name: mysql-volume
-          mountPath: /app
+      - name: data-loader
+        image: data-loader:latest  # Nome da imagem local
+        imagePullPolicy: Never  # Usa a imagem local, sem tentar baixar de um registro
         env:
         - name: MYSQL_HOST
-          value: "mysql"
+          value: "mysql"  # Nome do serviço do MySQL no Kubernetes
         - name: MYSQL_USER
           value: "root"
         - name: MYSQL_PASSWORD
           value: "senha123"
+        - name: MYSQL_DATABASE
+          value: "filmes_db"
       restartPolicy: Never
-      volumes:
-      - name: mysql-volume
-        persistentVolumeClaim:
-          claimName: mysql-pvc
+  backoffLimit: 2  # Número de tentativas em caso de falha

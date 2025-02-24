@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-filmes
+  labels:
+    app: app-filmes
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-filmes
+  template:
+    metadata:
+      labels:
+        app: app-filmes
+    spec:
+      containers:
+        - name: app-filmes
+          image: app-filmes:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
