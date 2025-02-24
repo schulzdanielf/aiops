@@ -1,0 +1,27 @@
+# k8s/opentelemetry/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentelemetry-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opentelemetry-collector
+  template:
+    metadata:
+      labels:
+        app: opentelemetry-collector
+    spec:
+      containers:
+      - name: opentelemetry-collector
+        image: otel/opentelemetry-collector
+        ports:
+        - containerPort: 4317
+        volumeMounts:
+        - name: config
+          mountPath: /etc/otel
+      volumes:
+      - name: config
+        configMap:
+          name: opentelemetry-config
