@@ -1,11 +1,11 @@
 # Projeto AIOps com SRE
 
 ## Descrição
-Este projeto tem como objetivo aplicar os conceitos de SRE (Site Reliability Engineering) e AIOps (Artificial Intelligence for IT Operations) em uma aplicação simples, utilizando OpenTelemetry para monitoramento contínuo.
+O projeto aplica AIOps (Artificial Intelligence for IT Operations), utilizando OpenTelemetry para monitoramento contínuo.
 
 Para aumentar a robustez e a capacidade de diagnóstico do sistema, será adotada a estratégia de Engenharia do Caos, simulando falhas planejadas e variações de tráfego de usuários. Esses testes serão documentados e utilizados para construir uma base de conhecimento que alimentará uma RAG (Retrieval-Augmented Generation) para um modelo de IA generativa.
 
-O foco principal é criar e documentar exemplos reais de cenários de indisponibilidade. Em cenários futuros, o modelo será capaz de recuperar casos similares da base de conhecimento e oferecer diagnósticos detalhados para identificar possíveis causas de falhas na aplicação.
+O foco principal é criar e documentar exemplos reais de cenários de indisponibilidade. Em cenários futuros, o modelo será capaz de recuperar casos similares da base de conhecimento e oferecer diagnósticos para identificar possíveis causas de falhas na aplicação.
 
 Com essa abordagem, o projeto busca unir práticas modernas de monitoramento, aprendizado de máquina e engenharia do caos para construir um fluxo de dados resiliente e inteligente, capaz de auxiliar na prevenção e na rápida resolução de incidentes em ambientes de produção.
 
@@ -46,8 +46,6 @@ Com essa abordagem, o projeto busca unir práticas modernas de monitoramento, ap
     - SLI, SLO, SLA
     - MTTR, MTTD
     - Falsos Positivos, Falsos Negativos
-
-
 
 ## AIOps
 
@@ -122,19 +120,15 @@ Exemplo de cenários:
 - É esperado que o sistema identifique que o endpoint foi impactado.
 
 
-
-
+## Cenários de avaliação
 1. Falha de conexão com banco de dados
 2. Ataque de negação de serviço
 3. Falha de comunicação entre serviços
 4. Implantação de nova versão que retorna erros
 
-## Cenários de avaliação
-1. 
-
 ## Desafios
   - Como passar para o modelo de LLM casos parecidos com os encontrados
-  -
+
 
 ## Licença
 Este projeto é licenciado sob a [MIT License](LICENSE).
