@@ -1,27 +1,35 @@
-# k8s/opentelemetry/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentelemetry-collector
+  name: otelcol
+  labels:
+    app: otelcol
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: opentelemetry-collector
+      app: otelcol
   template:
     metadata:
       labels:
-        app: opentelemetry-collector
+        app: otelcol
     spec:
       containers:
-      - name: opentelemetry-collector
-        image: otel/opentelemetry-collector
-        ports:
-        - containerPort: 4317
-        volumeMounts:
-        - name: config
-          mountPath: /etc/otel
+        - name: otelcol
+          image: "otel/opentelemetry-collector:latest"
+          args:
+            - "--config=/conf/collector.yaml"
+          volumeMounts:
+            - mountPath: /conf
+              name: collector-config
+          ports:
+            - containerPort: 4317  # Para o gRPC
+            - containerPort: 4318  # Para o HTTP
+            - containerPort: 9091  # Para o Prometheus
       volumes:
-      - name: config
-        configMap:
-          name: opentelemetry-config
+        - name: collector-config
+          configMap:
+            name: collector-config
+            items:
+              - key: collector.yaml
+                path: collector.yaml

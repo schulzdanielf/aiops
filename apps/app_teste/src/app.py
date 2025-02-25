@@ -1,9 +1,40 @@
 from flask import Flask, jsonify, request
 from flask_restx import Api, Resource, fields
 import pymysql
+from opentelemetry import metrics
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+
+
+# Configuração do OpenTelemetry Metrics
+metric_exporter = OTLPMetricExporter(endpoint="http://otelcol:4317/v1/metrics", insecure=True)
+metric_reader = PeriodicExportingMetricReader(metric_exporter)
+
+# Configuração do MeterProvider com o MetricReader
+metrics.set_meter_provider(MeterProvider(metric_readers=[metric_reader]))
+meter = metrics.get_meter("filmes_meter", "0.1.0")
+
+# Criação da métrica de contagem de filmes pesquisados
+filmes_pesquisados_counter = meter.create_counter(
+    "filmes_pesquisados",
+    description="Contagem de filmes pesquisados",
+    unit="1",
+)
+
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='API de Filmes', description='API para gerenciar filmes')
+
+
+FlaskInstrumentor().instrument_app(app)
+
+filmes_pesquisados_counter = meter.create_counter(
+    "filmes_pesquisados",
+    description="Contagem de filmes pesquisados",
+    unit="1",
+)
 
 # Configurações do MySQL
 MYSQL_CONFIG = {
@@ -82,6 +113,9 @@ class MoviesList(Resource):
             with conn.cursor() as cursor:
                 cursor.execute(query, params)
                 movies = cursor.fetchall()
+
+            # Incrementar a métrica de filmes pesquisados
+            filmes_pesquisados_counter.add(len(movies), {"endpoint": "/movies"})
 
             return movies, 200
 

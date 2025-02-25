@@ -1,0 +1,28 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+      grpc:
+
+processors:
+  batch:
+    timeout: 1m
+    send_batch_size: 100
+
+exporters:
+  kafka:
+    brokers: ["kafka:9092"]
+    topic: otel-metrics
+  prometheus:
+    endpoint: "0.0.0.0:9464"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [kafka, prometheus]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [kafka]
