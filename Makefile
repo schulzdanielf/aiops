@@ -53,5 +53,17 @@ git:
 	git add .
 	git status
 
+# Acessa o diretório de filmes e cria uma nova imagem docker
+filmes:
+	cd apps/app_teste && docker build -t app-filmes .
+	kubectl delete pod -l app=app-filmes
+
+simulator:
+	cd apps/simulator && docker build -t simulator .
+	kubectl delete pod -l app=simulator
+
+logs_filmes:
+	kubectl logs -l app=app-filmes
+
 # Tarefas padrões
 .PHONY: clean format lint mypy test install update rebuild

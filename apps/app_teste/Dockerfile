@@ -16,5 +16,7 @@ COPY src/ .
 # Expor a porta que a aplicação vai rodar
 EXPOSE 5000
 
+ENV OTEL_SERVICE_NAME=app-filmes
+
 # Comando para rodar a aplicação
 CMD ["python", "app.py"]
